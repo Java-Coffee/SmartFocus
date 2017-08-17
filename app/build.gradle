@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
+    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.example.javacoffee.smartfocus"
         minSdkVersion 23
@@ -37,4 +38,6 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:latest.release'
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
+    compile 'cn.bmob.android:bmob-sdk:3.5.5'
 }
