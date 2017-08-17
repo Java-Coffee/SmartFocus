@@ -15,6 +15,7 @@ import com.example.javacoffee.smartfocus.fragment.GirlFragment;
 import com.example.javacoffee.smartfocus.fragment.UserFragment;
 import com.example.javacoffee.smartfocus.fragment.WechatFragment;
 import com.example.javacoffee.smartfocus.ui.SettingActivity;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setElevation(0);
         initData();
         initView();
+        //Bugly测试
+        //CrashReport.testJavaCrash();
     }
 
     private void initView() {
