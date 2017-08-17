@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SmartFocus</string>
+    <string name="text_butler">智能管家</string>
+    <string name="text_girl">美女社区</string>
+    <string name="text_user">个人中心</string>
+    <string name="text_wechat">微信精选</string>
+    <string name="text_settings">设置</string>
+</resources>
