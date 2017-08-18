@@ -75,10 +75,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_login:
-                login();
+                startActivityForResult(new Intent(getApplicationContext(),SignUpActivity.class), StaticClass.REQUEST_SIGNUP);
+                //login();
                 break;
             case R.id.link_signup:
-                startActivityForResult(new Intent(this,SignUpActivity.class), StaticClass.REQUEST_SIGNUP);
+                startActivityForResult(new Intent(getApplicationContext(),SignUpActivity.class), StaticClass.REQUEST_SIGNUP);
+                break;
 
         }
     }
