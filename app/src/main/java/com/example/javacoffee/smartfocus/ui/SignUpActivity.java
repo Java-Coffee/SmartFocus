@@ -53,7 +53,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onSignupSuccess() {
         btn_signup.setEnabled(true);
         Toast.makeText(getBaseContext(), "Signup success", Toast.LENGTH_LONG).show();
-        setResult(RESULT_OK, null);
         finish();
     }
 
@@ -98,14 +97,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             et_password.setError(null);
         }
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        progressDialog.dismiss();
 
         if (!valid) {
+            L.e("invalid input");
             onSignupFailed();
         }else {
             MyUser myuser = new MyUser();

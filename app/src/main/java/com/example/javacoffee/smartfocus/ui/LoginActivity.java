@@ -11,9 +11,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.javacoffee.smartfocus.MainActivity;
 import com.example.javacoffee.smartfocus.R;
+import com.example.javacoffee.smartfocus.entity.MyUser;
 import com.example.javacoffee.smartfocus.utils.L;
 import com.example.javacoffee.smartfocus.utils.StaticClass;
+
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,17 +51,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String accountId = accountText.getText().toString();
-        String password = passwordText.getText().toString();
+        final String accountId = accountText.getText().toString().trim();
+        final String password = passwordText.getText().toString().trim();
 
         // TODO: Implement your own authentication logic here.
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
+                        MyUser user = new MyUser();
+                        user.setUsername(accountId);
+                        user.setPassword(password);
+                        user.login(new SaveListener<MyUser>() {
+                            // On complete call either onLoginSuccess or onLoginFailed
+                            @Override
+                            public void done(MyUser myUser, BmobException e) {
+                                if (e == null){
+                                    onLoginSuccess();
+                                }else {
+                                    L.e(e.toString());
+                                    onLoginFailed();
+                                }
+                            }
+                        });
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -69,41 +86,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginButton = (Button) findViewById(R.id.btn_login);
         signLink = (TextView) findViewById(R.id.link_signup);
         loginButton.setOnClickListener(this);
+        signLink.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_login:
-                startActivityForResult(new Intent(getApplicationContext(),SignUpActivity.class), StaticClass.REQUEST_SIGNUP);
-                //login();
+                login();
                 break;
             case R.id.link_signup:
-                startActivityForResult(new Intent(getApplicationContext(),SignUpActivity.class), StaticClass.REQUEST_SIGNUP);
+                startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
                 break;
 
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == StaticClass.REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                this.finish();
-            }
-        }
-
-    }
 
     //判断用户输入是否合法
     public boolean validate() {
         boolean valid = true;
 
-        String accountId = accountText.getText().toString();
-        String password = passwordText.getText().toString();
+        String accountId = accountText.getText().toString().trim();
+        String password = passwordText.getText().toString().trim();
 
         if (accountId.isEmpty()) {
             accountText.setError("enter a valid account ID");
@@ -129,6 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void onLoginSuccess() {
         loginButton.setEnabled(true);
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
