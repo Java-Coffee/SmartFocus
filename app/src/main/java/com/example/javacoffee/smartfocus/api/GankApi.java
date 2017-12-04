@@ -2,6 +2,7 @@ package com.example.javacoffee.smartfocus.api;
 
 import com.example.javacoffee.smartfocus.bean.SearchData;
 import com.example.javacoffee.smartfocus.entity.GirlData;
+import com.example.javacoffee.smartfocus.entity.ZhihuData;
 import com.example.javacoffee.smartfocus.service.MyHttpInterceptor;
 import com.example.javacoffee.smartfocus.utils.StaticClass;
 import com.google.gson.Gson;
@@ -60,6 +61,9 @@ public class GankApi {
     public interface GankInterface{
         @GET("data/福利/10/1")
         rx.Observable<SearchData> getGirlImage();
+
+        @GET("4/news/latest")
+        rx.Observable<ZhihuData> getDailyNews();
     }
 
     public static final Func1<SearchData, List<GirlData>> DECODE_HELPER = new Func1<SearchData, List<GirlData>>() {
