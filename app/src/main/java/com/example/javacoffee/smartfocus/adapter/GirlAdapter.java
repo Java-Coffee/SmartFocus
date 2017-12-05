@@ -62,7 +62,7 @@ public class GirlAdapter extends RecyclerView.Adapter<GirlAdapter.ViewHolder>{
         layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         holder.imageView.setLayoutParams(layoutParams);
         final GirlData data = mList.get(position);
-        L.i("url = "+data.getImgUrl()+" position = "+position);
+        //L.i("url = "+data.getImgUrl()+" position = "+position);
 //        Picasso.with(mContext)
 //                .load(data.getImgUrl())
 ////                    .centerCrop()
@@ -107,7 +107,6 @@ public class GirlAdapter extends RecyclerView.Adapter<GirlAdapter.ViewHolder>{
         public ViewHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.item_img);
-            L.i("imageView find:"+imageView);
             textView = (TextView) itemView.findViewById(R.id.item_title);
         }
     }

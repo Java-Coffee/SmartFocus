@@ -80,7 +80,7 @@ public class GirlFragment extends Fragment{
                                 GirlData girlData = new GirlData();
                                 girlData.setImgUrl(resultsBeanList.get(i).getUrl());
                                 girlData.setTitle(resultsBeanList.get(i).getType());
-                                L.i("Url = "+resultsBeanList.get(i).getUrl()+"\n"+"Type = "+resultsBeanList.get(i).getType());
+                                //L.i("Url = "+resultsBeanList.get(i).getUrl()+"\n"+"Type = "+resultsBeanList.get(i).getType());
                                 girlDataList.add(girlData);
                             }
                             return girlDataList;

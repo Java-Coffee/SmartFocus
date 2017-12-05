@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.javacoffee.smartfocus.R;
 import com.example.javacoffee.smartfocus.entity.ZhihuData;
+import com.example.javacoffee.smartfocus.utils.L;
 
 import java.util.List;
 
@@ -21,9 +22,9 @@ import butterknife.ButterKnife;
 public class ZhihuAdapter extends RecyclerView.Adapter<ZhihuAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<ZhihuData.StoriesBean> mStoriesBeanList;
+    private List<ZhihuData.TopStoriesBean> mStoriesBeanList;
 
-    public ZhihuAdapter(Context context, List<ZhihuData.StoriesBean> beanList) {
+    public ZhihuAdapter(Context context, List<ZhihuData.TopStoriesBean> beanList) {
         mContext = context;
         mStoriesBeanList = beanList;
     }
@@ -40,10 +41,11 @@ public class ZhihuAdapter extends RecyclerView.Adapter<ZhihuAdapter.ViewHolder> 
         ViewGroup.LayoutParams layoutParams = holder.mImgPreview.getLayoutParams();
         layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         holder.mImgPreview.setLayoutParams(layoutParams);
-        final ZhihuData.StoriesBean data = mStoriesBeanList.get(position);
-        Glide.with(mContext).load(data.getImages())
+        final ZhihuData.TopStoriesBean data = mStoriesBeanList.get(position);
+        L.i("zhihuData:"+data.getImage()+" title = "+data.getTitle());
+        Glide.with(mContext).load(data.getImage())
                 .asBitmap()
-                .placeholder(R.drawable.china_mobile)
+                .placeholder(R.drawable.add_pic)
                 //                .centerCrop()
                 .into(holder.mImgPreview);
         holder.mContentTv.setText(data.getTitle());

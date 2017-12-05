@@ -44,7 +44,7 @@ public class GankApi {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(StaticClass.GIRL_URL)
+                .baseUrl(StaticClass.ZHIHU_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -53,6 +53,7 @@ public class GankApi {
         gankInterface = retrofit.create(GankInterface.class);
 
     }
+
 
     public GankInterface getGankInterface(){
         return gankInterface;

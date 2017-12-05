@@ -46,20 +46,23 @@ public class ButlerFragment extends Fragment {
     }
 
     private void initData() {
+        L.i("initData ButlerFragment");
         GankApi.getInstance()
                 .getGankInterface()
                 .getDailyNews()
                 .subscribeOn(Schedulers.io())
-                .map(new Func1<ZhihuData, List<ZhihuData.StoriesBean>>() {
+                .map(new Func1<ZhihuData, List<ZhihuData.TopStoriesBean>>() {
                     @Override
-                    public List<ZhihuData.StoriesBean> call(ZhihuData zhihuData) {
+                    public List<ZhihuData.TopStoriesBean> call(ZhihuData zhihuData) {
                         int size = zhihuData.getStories().size();
-                        List<ZhihuData.StoriesBean> storiesBean = new ArrayList<ZhihuData.StoriesBean>();
+                        L.i("size = "+size);
+                        List<ZhihuData.TopStoriesBean> storiesBean = new ArrayList<ZhihuData.TopStoriesBean>();
+                        storiesBean = zhihuData.getTop_stories();
                         return storiesBean;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<ZhihuData.StoriesBean>>() {
+                .subscribe(new Observer<List<ZhihuData.TopStoriesBean>>() {
                     @Override
                     public void onCompleted() {
 
@@ -67,12 +70,13 @@ public class ButlerFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable throwable) {
-
+                        L.i("throwable-----"+throwable.getMessage());
                     }
 
                     @Override
-                    public void onNext(List<ZhihuData.StoriesBean> storiesBeen) {
+                    public void onNext(List<ZhihuData.TopStoriesBean> storiesBeen) {
                         mAdapter = new ZhihuAdapter(getActivity(),storiesBeen);
+
                         mZhihurecyclerView.setAdapter(mAdapter);
                         mAdapter.notifyDataSetChanged();
                     }
